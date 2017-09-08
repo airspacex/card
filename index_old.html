@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>swipe demo</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript">
+        $(window).load(function() { // better to use $(document).ready(function(){
+            $('btnclick').buttonMarkup({ corners: false });
+        });
+
+        $("btnclick").click(function(){
+            $(".bbutton").fadeout(
+                function() {
+                    $(this).text("World").fadeIn();
+                });  
+        });
+
+        function btnclick(){           
+            $(".bbutton").find("span").fadeOut(
+                function() {
+                    $(this).text("Coming soon").fadeIn();
+                });  
+        };
+
+        function DisplayNext(){           
+            $(".bbutton").find("span").fadeOut(
+                function() {
+                    $(this).text("Next").fadeIn();
+                });  
+        };        
+
+        function DisplayLast(){           
+            $(".bbutton").find("span").fadeOut(
+                function() {
+                    $(this).text("Last").fadeIn();
+                });  
+        };          
+    </script>
+    <style>
+        .bbutton{
+            display: inline-block;
+            background: url(btn.bg.png) repeat-x 0px 0px;
+            padding: 5px 10px 6px 10px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+            text-align: center;
+            /* border: 1px solid rgba(0,0,0,0.4);
+            -moz-border-radius: 5px;
+            -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+            -webkit-border-radius: 5px;
+            -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5); */
+    
+        }
+
+        /* .ui-block-a { width: 75% !important; }
+        .ui-block-b { width: 25% !important; } */
+    </style>
+</head>
+<body>
+    <div class="bbutton" ><span>TEXT!</span></div>
+    <!-- <button id="btnclick" onclick="btnclick()" class="flat-btn" data-shadow="false">Test</button> -->
+    <div class=ui-grid-a>
+        <div class=ui-block-a><a href="javascript:btnclick();" data-role="button" data-icon="back">Last</a></div>
+        <div class=ui-block-b><a href="javascript:btnclick();" data-role="button" data-icon="forward">Next</a></div>
+    </div>
+</body>
+</html>
