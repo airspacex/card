@@ -107,6 +107,7 @@
         });    
 
         function ResetContent(){
+            index = 0;
             $('#select-language').val('C').slider("refresh");
             $('#select-font-size').val('L').slider("refresh");
             $('#select-case').val('U').slider("refresh");
@@ -188,7 +189,7 @@
         };   
 
         function DisplayNext(){
-            if (index < liststring.length)
+            if (index < liststring.length-1)
                 index = index + 1;         
             $(".display").find("span").fadeOut(
                 function() {
