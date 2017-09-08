@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SWIPE Demo</title>
+    <title>CARD</title>
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="css/jquery-mobile-flat-ui-theme-master/jquery.mobile.flatui.min.css" />
     <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
@@ -75,7 +75,7 @@
     </style>
     <script type="text/javascript">
         var index = 0;
-        var liststring = ["apple","banana","cat","dog"]
+        var liststring = ["hello","you"];
 
         $(window).load(function() { // better to use $(document).ready(function(){
 
@@ -93,7 +93,7 @@
             });
 
             $("#select-language").change( function() {
-                SetLanguage();
+                
                 DisplayCurrent();
                 // $(".display").find("span").fadeOut(
                 // function() {
@@ -106,16 +106,43 @@
             SetLanguage();
             SetFontSize();
             DisplayFirst();
-
-
-            
+                       
         });    
 
+        function readTextFile(file)
+        {
+            var allText;
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        allText = rawFile.responseText.split("\n");
+                    }
+                }
+            }
+            rawFile.send(null);
+            //alert(allText[0]);
+            return allText;
+        }
+
         function SetLanguage(){
-            if ($("#select-lang").val() == "C")
-                liststring = ["一","二","三","四","五","六","七","八","九","十"];
+            
+            if ($("#select-language").val() == "C")
+            {
+                //liststring = ["一","二","三","四","五","六","七","八","九","十"];
+                liststring = readTextFile("data/k21c.txt");
+            }
+            else if ($("#select-language").val() == "E")
+            {
+                //liststring = ["apple","banana","cat","dog","egg","fish","glass","horse"];
+                liststring = readTextFile("data/k21e.txt");
+            }
             else
-                liststring = ["apple","banana","cat","dog","egg","fish","glass","horse"];
+                liststring = ["nodata"];
         }
         
         
@@ -207,7 +234,7 @@
                                 <option value="L" selected="selected">A</option>
                                 <option value="S">a</option>
                         </select>
-                        <select name="select-lang" id="select-lang" data-role="slider" data-theme="c" data-track-theme="f">
+                        <select name="select-language" id="select-language" data-role="slider" data-theme="c" data-track-theme="f">
                                 <option value="C" selected="selected">中</option>
                                 <option value="E">Eng</option>
                         </select>                        

@@ -1,0 +1,12 @@
+boy
+girl
+teacher
+pencil
+school
+bag
+book
+one
+two
+three
+four
+five
