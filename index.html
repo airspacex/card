@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CARD</title>
+    <link rel="icon" href="http://example.com/favicon.png">
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="css/jquery-mobile-flat-ui-theme-master/jquery.mobile.flatui.min.css" />
     <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
@@ -11,10 +12,6 @@
     <script src="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
     <style type="text/css">
-        /* @font-face {
-            font-family:"EngTress";
-            src: url("fonts/EngTress.ttc");
-        } */
         @font-face {
             font-family:"EngTressA";
             src: url("fonts/EngTressA.ttf");
@@ -109,6 +106,12 @@
                        
         });    
 
+        function ResetContent(){
+            $('#select-language').val('C').slider("refresh");
+            $('#select-font-size').val('L').slider("refresh");
+            $('#select-case').val('U').slider("refresh");
+        }
+
         function readTextFile(file)
         {
             var allText;
@@ -154,7 +157,7 @@
         }
 
         function ChangeCase(str){
-            if ($("#select-case").val() == "L")
+            if ($("#select-case").val() == "U")
             {
                 return str.toUpperCase();
             }
@@ -207,15 +210,12 @@
         };          
     </script>    
 </head>
-<body>
-    
+<body>   
     <!-- <button id="btnclick" onclick="btnclick()" class="flat-btn" data-shadow="false">Test</button> -->
     <div class="wrap">
-        <!-- <div data-role="header"><h1>練習卡</h1> </div> -->
         <div data-role="header">                  
                     <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
-                        <a href="#" class="ui-btn ui-btn-icon-left ui-icon-home">Home</a>
-                        <!-- <input data-enhanced="true" value="Home" type="button" class="ui-btn ui-btn-icon-left ui-icon-home"/> -->
+                        <a href="javascript:DisplayFirst();ResetContent();" class="ui-btn ui-btn-icon-left ui-icon-recycle ">Reload</a>
                         <!-- <a href="#" hidden class="ui-btn ui-btn-icon-left ui-icon-arrow-u">Up</a>
                         <a href="#" hidden class="ui-btn ui-btn-icon-left ui-icon-arrow-d">Down</a> -->                    
                         <select name="select-choice-1" id="select-choice-1" >
@@ -231,8 +231,8 @@
                                 <option value="S">S</option>
                         </select>
                         <select name="select-case" id="select-case" data-role="slider" data-theme="c" data-track-theme="f">
-                                <option value="L" selected="selected">A</option>
-                                <option value="S">a</option>
+                                <option value="U" selected="selected">A</option>
+                                <option value="L">a</option>
                         </select>
                         <select name="select-language" id="select-language" data-role="slider" data-theme="c" data-track-theme="f">
                                 <option value="C" selected="selected">中</option>
@@ -245,7 +245,7 @@
                 <div class=ui-block-a><a href="javascript:DisplayLast();" data-role="button" data-icon="back">Last</a></div>
                 <div class=ui-block-b><a href="javascript:DisplayNext();" data-role="button" data-icon="forward">Next</a></div>
             </div>        
-        <div class="bottom"><small>ver:0.1alpha</small></div>
+        <div class="bottom"><small>ver:0.1.1 alpha</small></div>
     </div>
 </div>
 </body>
