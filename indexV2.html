@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CARD</title>
+    <link rel="icon" href="apple-icon.png">
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-mobile-flat-ui-theme-master/jquery.mobile.flatui.min.css" />
+    <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style type="text/css">
+        @font-face {
+            font-family:"EngTressA";
+            src: url("fonts/EngTressA.ttf");
+        }
+        @font-face {
+            font-family:"EngTressB";
+            src: url("fonts/EngTressB.ttf");
+        }        
+
+        .display{
+            display: inline-block;
+            border-radius: 0 0 0 0;
+            /* height: 500px; */
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+            font-family: EngTressA;
+            font-weight: normal;
+            font-size: 100px;
+            flex:1;            
+            /*text-shadow: 1px 1px 1px rgba(255,255,255,0.5);*/
+            text-align: center;     
+            /* line-height: normal;  */
+            /* border: 1px solid rgba(0,0,0,0.4);
+            -moz-border-radius: 5px;
+            -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+            -webkit-border-radius: 5px;
+            -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5); */
+            display: flex;
+            justify-content: center;
+            /* align horizontal */
+            align-items: center;
+            /* align vertical */
+        }
+
+        .wrap {
+            height: 100vh;
+            width: 100%;
+            padding: 0px;
+            background-color: lightgray;
+            display:flex;
+            flex-direction:column;
+            /* justify-content: center; align horizontal */
+            /* align-items: center; align vertical */
+        }
+
+        .bottom {
+            width: 100%;
+            height: 20px;
+            background-color: #AEADE6;
+        }
+
+        .block{
+            background-color: yellow;   
+        } 
+
+        /* .ui-block-a { width: 75% !important; }
+        .ui-block-b { width: 25% !important; } */
+    </style>
+    <script type="text/javascript">
+        var index = 0;
+        var liststring = ["hello","you"];
+
+        $(window).load(function() { // better to use $(document).ready(function(){
+
+            $("#select-case").change( function() {            	
+                DisplayCurrent();
+            });
+
+            $("#select-font-size").change( function() {
+                SetFontSize();    
+                DisplayCurrent();                
+            });
+
+            $("#select-language").change( function() {
+            	SetLanguage();
+                index = 0;
+                DisplayCurrent();                
+            });     
+            
+            $("#select-choice-1").change( function() {
+            	SetLanguage();
+            	index = 0;
+                DisplayCurrent();
+            });
+
+            $('btnclick').buttonMarkup({ corners: false });
+            SetLanguage();
+            SetFontSize();
+            DisplayFirst();
+                       
+        });    
+
+        function ResetContent(){
+            index = 0;
+            $('#select-language').val('C').slider("refresh");
+            $('#select-font-size').val('L').slider("refresh");
+            $('#select-case').val('U').slider("refresh");            
+        }
+        
+        
+      //==========================================================================
+      //==========================================================================
+        function shuffle(array) {
+       	  var currentIndex = array.length, temporaryValue, randomIndex;
+
+       	  // While there remain elements to shuffle...
+       	  while (0 !== currentIndex) {
+
+       	    // Pick a remaining element...
+       	    randomIndex = Math.floor(Math.random() * currentIndex);
+       	    currentIndex -= 1;
+
+       	    // And swap it with the current element.
+       	    temporaryValue = array[currentIndex];
+       	    array[currentIndex] = array[randomIndex];
+       	    array[randomIndex] = temporaryValue;
+       	  }
+
+       	  return array;
+       	}
+
+      //==========================================================================
+        function readTextFile(file)
+        {
+            var allText;
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        allText = rawFile.responseText.split("\n");
+                    }
+                }
+            }
+            rawFile.send(null);
+            //return allText;
+            
+            //var tmpListStr = shuffle(allText);            
+            //for (var i = 0; i < tmpListStr.length; i++) {
+            //   alert("tmpListStr[i] : " + tmpListStr[i]);               
+            //}
+            return shuffle(allText);
+        }
+        
+        //==========================================================================
+        //==========================================================================
+        function SetLanguage(){       
+            if ($("#select-language").val() == "C") {
+            	if ($("#select-choice-1").val() == "K1")
+            		liststring = readTextFile("data/k1c.txt");
+            	if ($("#select-choice-1").val() == "K2")
+            		liststring = readTextFile("data/k21c.txt");
+            	if ($("#select-choice-1").val() == "K3")
+            		liststring = readTextFile("data/k3c.txt");
+            }
+            else if ($("#select-language").val() == "E") {
+            	if ($("#select-choice-1").val() == "K1")
+            		liststring = readTextFile("data/k1e.txt");
+            	if ($("#select-choice-1").val() == "K2")
+            		liststring = readTextFile("data/k21e.txt");
+            	if ($("#select-choice-1").val() == "K3")
+            		liststring = readTextFile("data/k3e.txt");
+            }
+            else {
+                liststring = ["nodata"];
+            }
+        }
+        
+      
+        function SetFontSize(){
+            if ($("#select-font-size").val() == "L")
+                $(".display").css({fontSize: "200px"});
+            else
+                $(".display").css({fontSize: "100px"});              
+        }
+
+      
+        function ChangeCase(str){
+            if ($("#select-case").val() == "U") {
+                return str.toUpperCase();
+            }
+            else {                
+                return str.toLowerCase();
+            }
+        }
+
+      //==========================================================================
+   	  //==========================================================================
+        function DisplayFirst(){                       
+            var FirstIndex = 0;
+            $(".display").find("span").fadeOut(
+                function() {
+                    $(this).text(ChangeCase(liststring[FirstIndex])).fadeIn();
+                });  
+        };   
+
+        function DisplayCurrent(){                       
+            $(".display").find("span").fadeOut(
+                function() {
+                    $(this).text(ChangeCase(liststring[index])).fadeIn();
+                });  
+        };   
+
+        function DisplayNext(){
+            if (index < liststring.length-1)
+                index = index + 1;         
+            else{
+            	index = 0;
+            	alert("Finish!");            	
+            }
+            $(".display").find("span").fadeOut(
+                function() {
+                    $(this).text(ChangeCase(liststring[index])).fadeIn();
+                });  
+        };        
+
+        function DisplayLast(){
+            if (index > 0)
+                index = index - 1; 
+            $(".display").find("span").fadeOut(
+                function() {
+                    $(this).text(ChangeCase(liststring[index])).fadeIn();
+                });  
+        };          
+    </script>    
+</head>
+<body>   
+    <!-- <button id="btnclick" onclick="btnclick()" class="flat-btn" data-shadow="false">Test</button> -->
+    <div class="wrap">
+        <div data-role="header">                  
+                    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
+                        <a href="javascript:DisplayFirst();ResetContent();" class="ui-btn ui-btn-icon-left ui-icon-recycle ">Reload</a>
+                        <!-- <a href="#" hidden class="ui-btn ui-btn-icon-left ui-icon-arrow-u">Up</a>
+                        <a href="#" hidden class="ui-btn ui-btn-icon-left ui-icon-arrow-d">Down</a> -->                    
+                        <select name="select-choice-1" id="select-choice-1" >
+                                <option value="K1">K1</option>
+                                <option value="K2">K2</option>
+                                <option value="K3" selected="selected">K3</option>
+                        </select>    
+                        <a href="/selectWord.html" class="ui-btn ui-btn-icon-left ui-icon-pin-s ">Select Word</a>
+                    </div>                   
+                    <h6>Card</h6>
+                    <div data-type="horizontal" class="ui-mini ui-btn-right" >
+                        <select name="select-font-size" id="select-font-size" data-role="slider" data-theme="c" data-track-theme="f">
+                                <option value="L" selected="selected">L</option>
+                                <option value="S">S</option>
+                        </select>
+                        <select name="select-case" id="select-case" data-role="slider" data-theme="c" data-track-theme="f">
+                                <option value="L" selected="selected">a</option>
+                                <option value="U" >A</option>
+                        </select>
+                        <select name="select-language" id="select-language" data-role="slider" data-theme="c" data-track-theme="f">
+                                <option value="C" selected="selected">中</option>
+                                <option value="E">Eng</option>
+                        </select>                        
+                    </div>
+        </div>        
+        <div class="display" ><span></span></div>
+        <div class=ui-grid-a>
+                <div class=ui-block-a><a href="javascript:DisplayLast();" data-role="button" data-icon="back">Last</a></div>
+                <div class=ui-block-b><a href="javascript:DisplayNext();" data-role="button" data-icon="forward">Next</a></div>
+            </div>        
+        <div class="bottom"><small>ver:0.2.1 alpha</small></div>
+        
+    </div>
+</div>
+</body>
+</html>
